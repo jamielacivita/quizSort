@@ -1,5 +1,8 @@
 import unittest
 from App import foo
+from openpyxl import load_workbook
+
+wb = load_workbook(filename = r"c:\source\python\quizSort\Data\PQ.xlsx")
 
 class test_load_roster_data(unittest.TestCase):
 	def test_load_roster_data(self):
@@ -56,25 +59,27 @@ class test_parse_player_levelR5(unittest.TestCase):
 
 class test_parse_player_level(unittest.TestCase):
 	def test_parse_player_level_row5(self):
-		results_tpl = foo.getParsePlayerLevelRow(5)
+		results_tpl = foo.getParsePlayerLevelRow(wb, 5)
 		self.assertEqual(results_tpl[0], "EMMA MCGREEVY")
 		self.assertEqual(results_tpl[1], "18600")
 		self.assertEqual(results_tpl[2], "100%")
 	def test_parse_player_level_row6(self):
-		results_tpl = foo.getParsePlayerLevelRow(6)
+		results_tpl = foo.getParsePlayerLevelRow(wb, 6)
 		self.assertEqual(results_tpl[0], "FAIZA ROGARIA")
 		self.assertEqual(results_tpl[1], "18000")
 		self.assertEqual(results_tpl[2], "100%")
 	def test_parse_player_level_row90(self):
-		results_tpl = foo.getParsePlayerLevelRow(90)
+		results_tpl = foo.getParsePlayerLevelRow(wb, 90)
 		self.assertEqual(results_tpl[0], "ISABELLA LOPEZ")
 		self.assertEqual(results_tpl[1], "0")
 		self.assertEqual(results_tpl[2], "0%")
 
 
 class test_parse_player(unittest.TestCase):
+	#wb = load_workbook(filename = r"c:\source\python\quizSort\Data\PQ.xlsx")
 	def test_parse_player(self):
-		player_level_dict = foo.parsePlayer()
+		wb = load_workbook(filename = r"c:\source\python\quizSort\Data\PQ.xlsx")
+		player_level_dict = foo.parsePlayer(wb)
 		emma = player_level_dict["EMMA MCGREEVY"]
 		self.assertEqual(emma[0] , "EMMA MCGREEVY")
 		self.assertEqual(emma[1], "18600")

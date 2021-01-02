@@ -119,9 +119,10 @@ def parsePlayerLevelR5():
 
 	
 
-def getParsePlayerLevelRow(row_number):
+def getParsePlayerLevelRow(workbook, row_number):
 	#import to read xlsx in python.
-	wb = load_workbook(filename = r"c:\source\python\quizSort\Data\PQ.xlsx")
+	#wb = load_workbook(filename = r"c:\source\python\quizSort\Data\PQ.xlsx")
+	wb = workbook
 	if DEBUG : print("WB: %s" % wb)
 	if DEBUG : print("Sheet Names: %s" % wb.sheetnames)
 	ws = wb["Player Level"]
@@ -139,13 +140,13 @@ def getParsePlayerLevelRow(row_number):
 	return (player, score, accuracy)
 
 
-def parsePlayer():
+def parsePlayer(wb):
 	START_ROW = 5
 	END_ROW = 90
 	player_level_dict = {}
 	for row in range(START_ROW, END_ROW+1):
-		key = getParsePlayerLevelRow(row)[0]
-		value = getParsePlayerLevelRow(row)
+		key = getParsePlayerLevelRow(wb, row)[0]
+		value = getParsePlayerLevelRow(wb, row)
 		#check to see if player already has a value in the dictonary.
 		if key in player_level_dict:
 			old_value = player_level_dict[key]
@@ -158,7 +159,7 @@ def parsePlayer():
 	return player_level_dict
 
 
-def parseClass(period):
+def parseClass(wb, period):
 	fileName_dict = {}
 	fileName_dict["01"] = r"c:\source\python\quizSort\Data\class01.txt"
 	fileName_dict["02"] = r"c:\source\python\quizSort\Data\class02.txt"
@@ -171,7 +172,7 @@ def parseClass(period):
 		students = f.readlines()
 		students[:] = [s.strip() for s in students]
 	
-	scores_dictionary = parsePlayer()
+	scores_dictionary = parsePlayer(wb)
 	for s in students:
 		if s in scores_dictionary:
 			student = s
@@ -211,8 +212,11 @@ def fileDialog():
 
 
 def startUI():     
-	name= fd.askopenfilename()     
-	print(name)  
+	filename = fd.askopenfilename()     
+	print(filename)
+	print("loading workbook")
+	wb = load_workbook(filename)
+	prettyPrintParseClass(parseClass(wb, "01"))
 	
 	#errmsg = 'Error!' 
 	#tk.Button(text='Click to Open File', command=callback).pack(fill=tk.X) 
