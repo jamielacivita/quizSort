@@ -1,4 +1,5 @@
 from openpyxl import load_workbook
+from openpyxl import Workbook
 import tkinter as tk 
 from tkinter import filedialog as fd  
 
@@ -223,6 +224,84 @@ def startUI():
 	tk.mainloop()
 
 
+def writeOutputNotebook(filename=r"c:\source\python\quizSort\Data\out.xlsx"):
+	wb = load_workbook(filename = r"c:\source\python\quizSort\Data\PQ.xlsx")
+	
+	book = Workbook()
+	sheet = book.active
+
+	#create class result sheets in workbook.
+	book.create_sheet("Period 01")
+	book.create_sheet("Period 02")
+	book.create_sheet("Period 04")
+	book.create_sheet("Period 07")
+
+	#Do Class Peroid 01
+	class01Data = parseClass(wb, "01")
+	sheet = book["Period 01"]
+	print(book.active)
+
+	for row in range(1,len(class01Data)+1):
+		#insert name
+		sheet.cell(row = row, column = 1).value = class01Data[row-1][0]
+		#insert score
+		sheet.cell(row = row, column = 2).value = class01Data[row-1][1]
+		#insert score
+		sheet.cell(row = row, column = 3).value = class01Data[row-1][2]
+
+
+	#Do Class Peroid 02
+	class02Data = parseClass(wb, "02")
+	sheet = book["Period 02"]
+	wb.active = 2
+
+	#print(class02Data)
+
+	for row in range(1,len(class02Data)+1):
+		#insert name
+		sheet.cell(row = row, column = 1).value = class02Data[row-1][0]
+		#insert score
+		sheet.cell(row = row, column = 2).value = class02Data[row-1][1]
+		#insert score
+		sheet.cell(row = row, column = 3).value = class02Data[row-1][2]
+
+
+	#Do Class Peroid 04
+	class04Data = parseClass(wb, "04")
+	sheet = book["Period 04"]
+	wb.active = 3
+
+	#print(class02Data)
+
+	for row in range(1,len(class04Data)+1):
+		#insert name
+		sheet.cell(row = row, column = 1).value = class04Data[row-1][0]
+		#insert score
+		sheet.cell(row = row, column = 2).value = class04Data[row-1][1]
+		#insert score
+		sheet.cell(row = row, column = 3).value = class04Data[row-1][2]
+
+
+	#Do Class Peroid 07
+	class07Data = parseClass(wb, "07")
+	sheet = book["Period 07"]
+	wb.active = 4
+
+	#print(class02Data)
+
+	for row in range(1,len(class07Data)+1):
+		#insert name
+		sheet.cell(row = row, column = 1).value = class02Data[row-1][0]
+		#insert score
+		sheet.cell(row = row, column = 2).value = class02Data[row-1][1]
+		#insert score
+		sheet.cell(row = row, column = 3).value = class02Data[row-1][2]
+
+
+	book.save(filename)
+	return None
+
+
 def main():
 	#print("JWTO")
 	#readCellA5()
@@ -237,7 +316,8 @@ def main():
 	#prettyPrintParseClass(parseClass("04"))
 	#prettyPrintParseClass(parseClass("07"))
 	#fileDialog()
-	startUI()
+	#startUI()
+	writeOutputNotebook()
 
 
 
