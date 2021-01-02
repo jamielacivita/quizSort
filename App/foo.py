@@ -1,4 +1,6 @@
 from openpyxl import load_workbook
+import tkinter as tk 
+from tkinter import filedialog as fd  
 
 DEBUG = False
 if __name__ == "__main__":
@@ -208,6 +210,14 @@ def fileDialog():
 		return None
 
 
+def startUI():     
+	name= fd.askopenfilename()     
+	print(name)  
+	
+	#errmsg = 'Error!' 
+	#tk.Button(text='Click to Open File', command=callback).pack(fill=tk.X) 
+	tk.mainloop()
+
 
 def main():
 	#print("JWTO")
@@ -222,7 +232,9 @@ def main():
 	#prettyPrintParseClass(parseClass("02"))
 	#prettyPrintParseClass(parseClass("04"))
 	#prettyPrintParseClass(parseClass("07"))
-	fileDialog()
+	#fileDialog()
+	startUI()
+
 
 
 
