@@ -213,19 +213,20 @@ def fileDialog():
 
 
 def startUI():     
-	filename = fd.askopenfilename()     
-	print(filename)
-	print("loading workbook")
-	wb = load_workbook(filename)
-	prettyPrintParseClass(parseClass(wb, "01"))
+	input_filename = fd.askopenfilename()     
+	output_filename = fd.asksaveasfilename()
+
+	writeOutputNotebook(input_filename, output_filename)
+	tk.quit()
+
 	
 	#errmsg = 'Error!' 
 	#tk.Button(text='Click to Open File', command=callback).pack(fill=tk.X) 
 	tk.mainloop()
 
 
-def writeOutputNotebook(filename=r"c:\source\python\quizSort\Data\out.xlsx"):
-	wb = load_workbook(filename = r"c:\source\python\quizSort\Data\PQ.xlsx")
+def writeOutputNotebook(input_filename, output_filename=r"c:\source\python\quizSort\Data\out.xlsx"):
+	wb = load_workbook(input_filename)
 	
 	book = Workbook()
 	sheet = book.active
@@ -298,7 +299,7 @@ def writeOutputNotebook(filename=r"c:\source\python\quizSort\Data\out.xlsx"):
 		sheet.cell(row = row, column = 3).value = class02Data[row-1][2]
 
 
-	book.save(filename)
+	book.save(output_filename)
 	return None
 
 
@@ -316,8 +317,7 @@ def main():
 	#prettyPrintParseClass(parseClass("04"))
 	#prettyPrintParseClass(parseClass("07"))
 	#fileDialog()
-	#startUI()
-	writeOutputNotebook()
+	startUI()
 
 
 
