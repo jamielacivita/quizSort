@@ -2,6 +2,7 @@ from openpyxl import load_workbook
 from openpyxl import Workbook
 import tkinter as tk 
 from tkinter import filedialog as fd  
+import os
 
 DEBUG = False
 if __name__ == "__main__":
@@ -161,11 +162,21 @@ def parsePlayer(wb):
 
 
 def parseClass(wb, period):
+
+	dir_path = os.path.dirname(os.path.realpath(__file__))
+	print(dir_path)
+	roster_files_location = dir_path.split("App")[0]+"\\Data\\"
+
 	fileName_dict = {}
-	fileName_dict["01"] = r"c:\source\python\quizSort\Data\class01.txt"
-	fileName_dict["02"] = r"c:\source\python\quizSort\Data\class02.txt"
-	fileName_dict["04"] = r"c:\source\python\quizSort\Data\class04.txt"
-	fileName_dict["07"] = r"c:\source\python\quizSort\Data\class07.txt"
+	#fileName_dict["01"] = r"c:\source\python\quizSort\Data\class01.txt"
+	#fileName_dict["02"] = r"c:\source\python\quizSort\Data\class02.txt"
+	#fileName_dict["04"] = r"c:\source\python\quizSort\Data\class04.txt"
+	#fileName_dict["07"] = r"c:\source\python\quizSort\Data\class07.txt"
+	fileName_dict["01"] = roster_files_location + "class01.txt"
+	fileName_dict["02"] = roster_files_location + "class02.txt"
+	fileName_dict["04"] = roster_files_location + "class04.txt"
+	fileName_dict["07"] = roster_files_location + "class07.txt"
+
 	FILENAME = fileName_dict[period]
 
 	class_scores_out_lst = []
@@ -304,6 +315,13 @@ def writeOutputNotebook(input_filename, output_filename=r"c:\source\python\quizS
 	book.save(output_filename)
 	return None
 
+def rf():
+	#print(os.getcwd())
+	dir_path = os.path.dirname(os.path.realpath(__file__))
+	print(dir_path)
+	roster_files_location = dir_path.split("App")[0]
+	roster_files_location = roster_files_location+"Data"
+	print(roster_files_location)
 
 def main():
 	#print("JWTO")
@@ -320,11 +338,6 @@ def main():
 	#prettyPrintParseClass(parseClass("07"))
 	#fileDialog()
 	startUI()
-
-
-
-
-
 
 if __name__ == "__main__":
 	main()
