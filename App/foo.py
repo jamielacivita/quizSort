@@ -213,16 +213,18 @@ def fileDialog():
 
 
 def startUI():     
+	root = tk.Tk()
 	input_filename = fd.askopenfilename()     
 	output_filename = fd.asksaveasfilename()
 
 	writeOutputNotebook(input_filename, output_filename)
-	tk.quit()
+	root.quit()
+	root.destroy()
 
 	
 	#errmsg = 'Error!' 
 	#tk.Button(text='Click to Open File', command=callback).pack(fill=tk.X) 
-	tk.mainloop()
+	root.mainloop()
 
 
 def writeOutputNotebook(input_filename, output_filename=r"c:\source\python\quizSort\Data\out.xlsx"):
