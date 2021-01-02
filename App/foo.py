@@ -144,13 +144,68 @@ def parsePlayer():
 	for row in range(START_ROW, END_ROW+1):
 		key = getParsePlayerLevelRow(row)[0]
 		value = getParsePlayerLevelRow(row)
-		player_level_dict[key]=value
+		#check to see if player already has a value in the dictonary.
+		if key in player_level_dict:
+			old_value = player_level_dict[key]
+			if old_value[1] > value[1]:
+				continue #because we don't want to add in lower values.
+			else:
+				player_level_dict[key]=value
+		else:	#key is not in dictionary - add it automatically.
+			player_level_dict[key]=value
 	return player_level_dict
 
 
+def parseClass(period):
+	fileName_dict = {}
+	fileName_dict["01"] = r"c:\source\python\quizSort\Data\class01.txt"
+	fileName_dict["02"] = r"c:\source\python\quizSort\Data\class02.txt"
+	fileName_dict["04"] = r"c:\source\python\quizSort\Data\class04.txt"
+	fileName_dict["07"] = r"c:\source\python\quizSort\Data\class07.txt"
+	FILENAME = fileName_dict[period]
+
+	class_scores_out_lst = []
+	with open(FILENAME) as f:
+		students = f.readlines()
+		students[:] = [s.strip() for s in students]
+	
+	scores_dictionary = parsePlayer()
+	for s in students:
+		if s in scores_dictionary:
+			student = s
+			score = scores_dictionary[s][1]
+			accuracy = scores_dictionary[s][2]
+			class_scores_out_lst.append([student, score, accuracy])
+		else:
+			student = s
+			score = "No Score"
+			accuracy = "N/A"
+			class_scores_out_lst.append([student, score, accuracy])
+
+	return class_scores_out_lst	
 
 
+def prettyPrintParseClass(class_scores_out_lst):
+	print("{:30}{:20}{:10}".format("STUDENT", "SCORE", "ACCURACY"))
+	print("{:30}{:20}{:10}".format("-------", "-----", "--------"))
+	for s in class_scores_out_lst:
+		student, score, accuracy = s
+		print("{:30}{:20}{:10}".format(student, score, accuracy))
 
+
+def fileDialog():
+	print("Path to input file.")
+	input_file = input("> ")
+	print("Path to output file.")
+	output_file = input("> ")
+
+	try:
+		with open(input_file) as f:
+			f.close()
+			return input_file
+	except:
+		print("Input file does not exist.")
+		return None
 
 
 
@@ -162,8 +217,13 @@ def main():
 	#parsePlayerLevelR5()
 	#parsePlayerLevel(5)
 	
-	print(parsePlayer())
-	#parseFirstPeriod()
+	#print(parsePlayer())
+	#prettyPrintParseClass(parseClass("01"))
+	#prettyPrintParseClass(parseClass("02"))
+	#prettyPrintParseClass(parseClass("04"))
+	#prettyPrintParseClass(parseClass("07"))
+	fileDialog()
+
 
 
 
