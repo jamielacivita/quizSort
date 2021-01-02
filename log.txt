@@ -1,0 +1,32 @@
+spent a bunch of time trying to get the import right for the tests module.
+
+Package Structure
+-----------------
+
+quizSort
+|
+|-----Setup.py
+|
+|-----App/
+|	|
+|	|
+|	|
+|	foo.py
+|	
+|-----Tests/
+	|
+	|
+	|
+	someTestProgram.py (where we need to import foo)
+
+
+in the test.py file
+	from App import foo
+in the setup.py file
+	packages = setuptools.find_packages(include=["App","App.*"])
+
+
+Data on how to find worksheets can be found here : 
+https://openpyxl.readthedocs.io/en/stable/api/openpyxl.workbook.workbook.html?highlight=switch%20sheets#openpyxl.workbook.workbook.Workbook.worksheets
+
+
